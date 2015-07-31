@@ -13,16 +13,16 @@
     src = {
         'build':{
             'root': rootBuild,
-            'styles': rootBuild + 'styles',
-            'scripts': rootBuild + 'scripts',
+            'styles': rootBuild + 'styles/',
+            'scripts': rootBuild + 'scripts/',
             'images': rootBuild + 'images/',
             'fonts': rootBuild + 'fonts/',
-            'tmpl': rootBuild + '/templates/'
+            'tmpl': rootBuild + 'templates/'
         },
         'dist':{
             'root': rootDist,
-            'styles': rootDist + 'styles',
-            'scripts': rootDist + 'scripts',
+            'styles': rootDist + 'styles/',
+            'scripts': rootDist + 'scripts/',
             'images': rootDist + 'images/',
             'fonts': rootDist + 'fonts/',
             'manifest': rootDist
@@ -38,7 +38,7 @@
             'mobile': merge(assets.defaults.css, assets.mobile.css),
             'desktop': merge(assets.defaults.css, assets.desktop.css)
         },
-        tmpl: assets.defaults.tmpl, assets.mobile.tmpl,
+        tmpl: assets.defaults.tmpl,
         fonts: assets.defaults.fonts
     };
 
@@ -80,7 +80,7 @@ gulp.task('fontsBuild', function() {
 });
 
 gulp.task('cleanBuild', function() {
-    del.sync([src.build.root + '*']);
+    del.sync([src.build.root + '*'], {force: true});
 });
 
 
@@ -150,14 +150,14 @@ gulp.task('stylesLarge', function() {
 *********************************************************/
 
 gulp.task('cleanDist', function() {
-    del.sync([src.dist.root + '*']);
+    del.sync([src.dist.root + '*'], {force: true});
 });
 
 gulp.task('jsDist', function() {
+    mkdirp(src.dist.scripts);
     return gulp.src(src.build.scripts + '*.js')
         .pipe($.foreach(function(stream, file){
             var fileName = path.basename(file.path, '.js');
-
             return stream
                 .pipe($.uglify())
                 .pipe($.size({
@@ -168,6 +168,7 @@ gulp.task('jsDist', function() {
 });
 
 gulp.task('stylesDist', function() {
+    mkdirp(src.dist.styles);
     return gulp.src(src.build.styles + '*.css')
         .pipe($.foreach(function(stream, file){
             var fileName = path.basename(file.path, '.css');
@@ -191,22 +192,31 @@ gulp.task('fontsDist', function() {
         .pipe(gulp.dest(src.dist.fonts));
 });
 
-gulp.task('revisionDist',function(){
-    gulp.src(src.dist.root + '*')
-        .pipe($.rev())
-        .pipe($.gzip())
-        .pipe(gulp.dest(src.dist.root))
-
-        .pipe($.rev.manifest())
-        .pipe(gulp.dest(src.dist.root));
-});
+// gulp.task('revisionDist',function(){
+//     gulp.src(src.dist.scripts + '*')
+//         .pipe($.rev())
+//         .pipe($.gzip())
+//         .pipe(gulp.dest(src.dist.scripts))
+//         .pipe($.rev.manifest({
+//             merge: true
+//         }))
+//         .pipe(gulp.dest(src.dist.root));
+//
+//     gulp.src(src.dist.styles + '*')
+//         .pipe($.rev())
+//         .pipe($.gzip())
+//         .pipe(gulp.dest(src.dist.styles))
+//         .pipe($.rev.manifest({
+//             merge: true
+//         }))
+//         .pipe(gulp.dest(src.dist.root));
+// });
 
 
 gulp.task('dist',function(){
     runSequence(
         'cleanDist',
-        ['jsDist', 'stylesDist', 'fontsDist'],
-        'revisionDist'
+        ['jsDist', 'stylesDist', 'fontsDist']
     );
 });
 /********************************************************

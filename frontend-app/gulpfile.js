@@ -145,6 +145,24 @@ gulp.task('stylesLarge', function() {
 });
 
 
+gulp.task('imageBuild', function() {
+    mkdirp(src.build.images);
+
+    return gulp.src([
+            'frontend-app/images/*.png',
+            'frontend-app/images/*.gif',
+            'frontend-app/images/*.jpg'
+        ])
+        .pipe($.imagemin({
+            progressive: true,
+            interlaced: true
+        }))
+        .pipe($.size({
+            title: 'Images size:'
+        }))
+        .pipe(gulp.dest(src.build.images))
+});
+
 /********************************************************
 ********************* TASK FOR DIST *********************
 *********************************************************/
@@ -192,6 +210,13 @@ gulp.task('fontsDist', function() {
         .pipe(gulp.dest(src.dist.fonts));
 });
 
+gulp.task('imageDist', function() {
+    mkdirp(src.dist.images);
+
+    return gulp.src(src.build.images)
+        .pipe(gulp.dest(src.dist.images));
+});
+
 // gulp.task('revisionDist',function(){
 //     gulp.src(src.dist.scripts + '*')
 //         .pipe($.rev())
@@ -213,22 +238,22 @@ gulp.task('fontsDist', function() {
 // });
 
 
-gulp.task('dist',function(){
+gulp.task('dist', function(){
     runSequence(
         'cleanDist',
-        ['jsDist', 'stylesDist', 'fontsDist']
+        ['jsDist', 'stylesDist', 'fontsDist', 'imageDist']
     );
 });
+
 /********************************************************
 ********************* END TASK FOR DIST *****************
 *********************************************************/
-
 
 gulp.task('default', function(){
     runSequence(
         'cleanBuild',
         'templates',
-        ['stylesSmall', 'stylesLarge', 'fontsBuild'],
+        ['stylesSmall', 'stylesLarge', 'fontsBuild', 'imageBuild'],
         ['jsLarge', 'jsSmall']
     );
 });

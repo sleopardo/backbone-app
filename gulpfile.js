@@ -86,6 +86,7 @@ gulp.task('cleanBuild', function() {
 
 // Genera un bundle sin minificar de todos los JS del proyecto
 gulp.task('jsSmall', function() {
+    mkdirp(src.build.scripts);
     gulp.src(bundles.js.mobile)
         .pipe($.concat('bundle__small.js'))
         .pipe($.size({
@@ -96,6 +97,7 @@ gulp.task('jsSmall', function() {
 
 // Genera un bundle desktop sin minificar de todos los JS del proyecto
 gulp.task('jsLarge', function() {
+    mkdirp(src.build.scripts);
     gulp.src(bundles.js.desktop)
         .pipe($.concat('bundle__large.js'))
         .pipe($.size({
@@ -107,6 +109,7 @@ gulp.task('jsLarge', function() {
 // Compila los sass del proyecto
 // los guarda en una carpeta temporal y los consume otra tarea
 gulp.task('stylesSmall', function() {
+    mkdirp(src.build.styles);
     return gulp.src(bundles.css.mobile)
         .pipe($.sass({
             outputStyle: 'expanded',
@@ -127,6 +130,7 @@ gulp.task('stylesSmall', function() {
 // Compila los sass del proyecto
 // los guarda en una carpeta temporal y los consume otra tarea
 gulp.task('stylesLarge', function() {
+    mkdirp(src.build.styles);
     return gulp.src(bundles.css.desktop)
         .pipe($.sass({
             outputStyle: 'expanded',
@@ -161,6 +165,34 @@ gulp.task('imageBuild', function() {
             title: 'Images size:'
         }))
         .pipe(gulp.dest(src.build.images))
+});
+
+/********************************************************
+********************* END TASK FOR DIST *****************
+*********************************************************/
+
+gulp.task('default', function(){
+    runSequence(
+        'cleanBuild',
+        'templates',
+        ['stylesSmall', 'stylesLarge', 'fontsBuild', 'imageBuild'],
+        ['jsLarge', 'jsSmall']
+    );
+});
+
+gulp.task('build', function() {
+    gulp.start('default');
+});
+
+gulp.task('watch', function() {
+    gulp.start('default');
+    gulp.watch([
+        './frontend-app/scripts/**/*.js',
+    ], ['jsLarge', 'jsSmall']);
+    gulp.watch('./gulpfile.js', ['default']);
+    gulp.watch('./frontend-app/config/*.js', ['default']);
+    gulp.watch('./frontend-app/templates/*.hbs', ['templatesWatch']);
+    gulp.watch('./frontend-app/styles/**/*.scss', ['stylesSmall', 'stylesLarge']);
 });
 
 /********************************************************
@@ -243,30 +275,4 @@ gulp.task('dist', function(){
         'cleanDist',
         ['jsDist', 'stylesDist', 'fontsDist', 'imageDist']
     );
-});
-
-/********************************************************
-********************* END TASK FOR DIST *****************
-*********************************************************/
-
-gulp.task('default', function(){
-    runSequence(
-        'cleanBuild',
-        'templates',
-        ['stylesSmall', 'stylesLarge', 'fontsBuild', 'imageBuild'],
-        ['jsLarge', 'jsSmall']
-    );
-});
-
-gulp.task('build', function() {
-    gulp.start('default');
-});
-
-gulp.task('watch', function() {
-    gulp.start('default');
-    gulp.watch([
-        './frontend-app/scripts/**/*.js',
-    ], ['jsLarge', 'jsSmall']);
-    gulp.watch('./frontend-app/templates/*.hbs', ['templatesWatch']);
-    gulp.watch('./frontend-app/styles/**/*.scss', ['stylesSmall', 'stylesLarge']);
 });

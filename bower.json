@@ -14,6 +14,7 @@
         "backbone": "~1.1.2",
         "handlebars": "2.0.0",
         "json2": "*",
+        "mockjax": "http://github.com/jakerella/jquery-mockjax/",
         "material-design": "https://github.com/google/material-design-lite.git#v1.0.2"
     },
     "devDependencies": {

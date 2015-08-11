@@ -8,8 +8,8 @@
     runSequence = require('run-sequence'),
     mkdirp = require('mkdirp'),
     merge = require('arr-merge'),
-    rootBuild = '../web-app/build/',
-    rootDist = '../web-app/dist/',
+    rootBuild = './web-app/build/',
+    rootDist = './web-app/dist/',
     src = {
         'build':{
             'root': rootBuild,
@@ -28,7 +28,7 @@
             'manifest': rootDist
         }
     },
-    assets = require('./config/files'),
+    assets = require('./frontend-app/config/files'),
     bundles = {
         js: {
             'mobile': merge(assets.defaults.js, assets.mobile.js),
@@ -59,7 +59,7 @@ gulp.task('templates', function(){
         .pipe($.handlebars())
         .pipe($.wrap('Handlebars.template(<%= contents %>)'))
         .pipe($.declare({
-            namespace: 'templates',
+            namespace: '__templates',
             noRedeclare: true, // Avoid duplicate declarations
         }))
         .pipe($.concat('templates.js'))
@@ -149,9 +149,9 @@ gulp.task('imageBuild', function() {
     mkdirp(src.build.images);
 
     return gulp.src([
-            'frontend-app/images/*.png',
-            'frontend-app/images/*.gif',
-            'frontend-app/images/*.jpg'
+            './frontend-app/images/*.png',
+            './frontend-app/images/*.gif',
+            './frontend-app/images/*.jpg'
         ])
         .pipe($.imagemin({
             progressive: true,
@@ -265,8 +265,8 @@ gulp.task('build', function() {
 gulp.task('watch', function() {
     gulp.start('default');
     gulp.watch([
-        '/frontend-app/scripts/**/*.js',
+        './frontend-app/scripts/**/*.js',
     ], ['jsLarge', 'jsSmall']);
-    gulp.watch('/frontend-app/templates/*.hbs', ['templatesWatch']);
-    gulp.watch('/frontend-app/styles/**/*.scss', ['stylesSmall', 'stylesLarge']);
+    gulp.watch('./frontend-app/templates/*.hbs', ['templatesWatch']);
+    gulp.watch('./frontend-app/styles/**/*.scss', ['stylesSmall', 'stylesLarge']);
 });

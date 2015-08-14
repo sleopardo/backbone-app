@@ -13,8 +13,9 @@ defaults = {
         './bower_components/backbone.wreqr/lib/backbone.wreqr.js',
         './bower_components/json2/json2.js',
         './bower_components/marionette/lib/core/backbone.marionette.js',
+        './frontend-app/scripts/vendors/materialize.js',
 
-        './web-app/build/templates/templates.js',
+        './www/build/templates/templates.js',
 
         // Application files
         './frontend-app/app.js',
@@ -30,13 +31,13 @@ defaults = {
         './frontend-app/scripts/modules/init.module.js'
     ],
     'css': [
-
+        './frontend-app/styles/materialize.scss',
     ],
     'tmpl': [
         './frontend-app/templates/*.hbs'
     ],
     'fonts': [
-
+        './frontend-app/fonts/**/*'
     ]
 };
 

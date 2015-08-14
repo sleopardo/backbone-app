@@ -8,8 +8,8 @@
     runSequence = require('run-sequence'),
     mkdirp = require('mkdirp'),
     merge = require('arr-merge'),
-    rootBuild = './web-app/build/',
-    rootDist = './web-app/dist/',
+    rootBuild = './www/build/',
+    rootDist = './www/dist/',
     src = {
         'build':{
             'root': rootBuild,
@@ -111,6 +111,7 @@ gulp.task('jsLarge', function() {
 gulp.task('stylesSmall', function() {
     mkdirp(src.build.styles);
     return gulp.src(bundles.css.mobile)
+        .pipe($.concat('bundle__small.css'))
         .pipe($.sass({
             outputStyle: 'expanded',
             includePaths: ['.'],
@@ -132,6 +133,7 @@ gulp.task('stylesSmall', function() {
 gulp.task('stylesLarge', function() {
     mkdirp(src.build.styles);
     return gulp.src(bundles.css.desktop)
+        .pipe($.concat('bundle__large.css'))
         .pipe($.sass({
             outputStyle: 'expanded',
             includePaths: ['.'],

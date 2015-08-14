@@ -13,31 +13,31 @@ defaults = {
         './bower_components/backbone.wreqr/lib/backbone.wreqr.js',
         './bower_components/json2/json2.js',
         './bower_components/marionette/lib/core/backbone.marionette.js',
-        './frontend-app/scripts/vendors/materialize.js',
+        './scripts/vendors/materialize.js',
 
-        './www/build/templates/templates.js',
-
-        // Application files
-        './frontend-app/app.js',
-        './frontend-app/scripts/modules/urls.module.js',
-        './frontend-app/scripts/modules/utils.module.js',
-        './frontend-app/scripts/modules/handlebarsRegisters.module.js',
-        './frontend-app/scripts/modules/router.module.js',
+        '../www/build/templates/templates.js',
 
         // Application files
-        './frontend-app/scripts/views/index.layout.view.js',
+        './app.js',
+        './scripts/modules/urls.module.js',
+        './scripts/modules/utils.module.js',
+        './scripts/modules/handlebarsRegisters.module.js',
+        './scripts/modules/router.module.js',
+
+        // Application files
+        './scripts/views/index.layout.view.js',
 
         // Initialize
-        './frontend-app/scripts/modules/init.module.js'
+        './scripts/modules/init.module.js'
     ],
     'css': [
-        './frontend-app/styles/materialize.scss',
+        './styles/materialize.scss',
     ],
     'tmpl': [
-        './frontend-app/templates/*.hbs'
+        './templates/*.hbs'
     ],
     'fonts': [
-        './frontend-app/fonts/**/*'
+        './fonts/**/*'
     ]
 };
 

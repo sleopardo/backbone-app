@@ -8,8 +8,8 @@
     runSequence = require('run-sequence'),
     mkdirp = require('mkdirp'),
     merge = require('arr-merge'),
-    rootBuild = './www/build/',
-    rootDist = './www/dist/',
+    rootBuild = '../www/build/',
+    rootDist = '../www/dist/',
     src = {
         'build':{
             'root': rootBuild,
@@ -28,7 +28,7 @@
             'manifest': rootDist
         }
     },
-    assets = require('./frontend-app/config/files'),
+    assets = require('./config/files'),
     bundles = {
         js: {
             'mobile': merge(assets.defaults.js, assets.mobile.js),
@@ -47,7 +47,7 @@
  * Default tasks
  */
 gulp.task('jsLinting', function() {
-    gulp.src('./frontend-app/**/*.js')
+    gulp.src('./**/*.js')
         .pipe($.jshint())
         .pipe($.jshint.reporter('jshint-stylish'))
 });
@@ -155,9 +155,9 @@ gulp.task('imageBuild', function() {
     mkdirp(src.build.images);
 
     return gulp.src([
-            './frontend-app/images/*.png',
-            './frontend-app/images/*.gif',
-            './frontend-app/images/*.jpg'
+            './images/*.png',
+            './images/*.gif',
+            './images/*.jpg'
         ])
         .pipe($.imagemin({
             progressive: true,
@@ -189,12 +189,12 @@ gulp.task('build', function() {
 gulp.task('watch', function() {
     gulp.start('default');
     gulp.watch([
-        './frontend-app/scripts/**/*.js',
+        './scripts/**/*.js',
     ], ['jsLarge', 'jsSmall']);
     gulp.watch('./gulpfile.js', ['default']);
-    gulp.watch('./frontend-app/config/*.js', ['default']);
-    gulp.watch('./frontend-app/templates/*.hbs', ['templatesWatch']);
-    gulp.watch('./frontend-app/styles/**/*.scss', ['stylesSmall', 'stylesLarge']);
+    gulp.watch('./config/*.js', ['default']);
+    gulp.watch('./templates/*.hbs', ['templatesWatch']);
+    gulp.watch('./styles/**/*.scss', ['stylesSmall', 'stylesLarge']);
 });
 
 /********************************************************

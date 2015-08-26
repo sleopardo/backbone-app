@@ -15,7 +15,7 @@ defaults = {
         './bower_components/marionette/lib/core/backbone.marionette.js',
         './scripts/vendors/materialize.js',
 
-        '../www/build/templates/templates.js',
+        './build/templates/templates.js',
 
         // Application files
         './app.js',

@@ -77,11 +77,26 @@
 
     <script type="text/javascript" src="./build/scripts/bundle__small.js"></script>
     <script>
-        $('.button-collapse').sideNav({
-            menuWidth: 300, // Default is 240
-            edge: 'left', // Choose the horizontal origin
-            closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
-        });
+        $(function(){
+            $('.button-collapse').sideNav({
+                menuWidth: 300, // Default is 240
+                edge: 'left', // Choose the horizontal origin
+                closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+            });
+
+            $('.materialboxed').materialbox();
+
+            $('[data-js="view-list"]').on('click', function(){
+                var cols = $('[data-js="cards-container"] > .col');
+                cols.removeClass('s6').addClass('s12');
+            });
+
+            $('[data-js="view-module"]').on('click', function(){
+                var cols = $('[data-js="cards-container"] > .col');
+                cols.removeClass('s12').addClass('s6');
+            });
+        })
+
     </script>
 </body>
 

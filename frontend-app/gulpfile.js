@@ -8,7 +8,8 @@
     runSequence = require('run-sequence'),
     mkdirp = require('mkdirp'),
     merge = require('arr-merge'),
-    rootBuild = '../www/build/',
+    htmlMin = require('gulp-html-minifier'),
+    rootBuild = './build/',
     rootDist = '../www/dist/',
     src = {
         'build':{
@@ -170,7 +171,7 @@ gulp.task('imageBuild', function() {
 });
 
 /********************************************************
-********************* END TASK FOR DIST *****************
+********************* END TASK FOR BUILD *****************
 *********************************************************/
 
 gulp.task('default', function(){
@@ -200,6 +201,13 @@ gulp.task('watch', function() {
 /********************************************************
 ********************* TASK FOR DIST *********************
 *********************************************************/
+
+gulp.task('indexCopy', function() {
+    return gulp.src('./index.html')
+        .pipe($.replace('./build/', './dist/'))
+        .pipe(htmlMin({collapseWhitespace: true}))
+        .pipe(gulp.dest('../www'));
+});
 
 gulp.task('cleanDist', function() {
     del.sync([src.dist.root + '*'], {force: true});
@@ -275,6 +283,7 @@ gulp.task('imageDist', function() {
 gulp.task('dist', function(){
     runSequence(
         'cleanDist',
-        ['jsDist', 'stylesDist', 'fontsDist', 'imageDist']
+        ['jsDist', 'stylesDist', 'fontsDist', 'imageDist'],
+        'indexCopy'
     );
 });

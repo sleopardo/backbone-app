@@ -1,5 +1,4 @@
 .DS_Store
 frontend-app/node_modules
 frontend-app/bower_components
-web-app/build
-web-app/dist
+frontend-app/build

@@ -204,7 +204,7 @@ gulp.task('watch', function() {
 
 gulp.task('indexCopy', function() {
     return gulp.src('./index.html')
-        .pipe($.replace('./build/', './dist/'))
+        .pipe($.replace('build/', 'dist/'))
         .pipe(htmlMin({collapseWhitespace: true}))
         .pipe(gulp.dest('../www'));
 });
@@ -248,7 +248,7 @@ gulp.task('stylesDist', function() {
 gulp.task('fontsDist', function() {
     mkdirp(src.dist.fonts);
 
-    return gulp.src(src.build.fonts + "*")
+    return gulp.src(src.build.fonts + "**/*")
         .pipe(gulp.dest(src.dist.fonts));
 });
 

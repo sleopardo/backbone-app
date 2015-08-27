@@ -14,13 +14,42 @@ SantiApp.module('Router', function (Router, SantiApp, Backbone, Marionette, $, _
     }
 
     addRoutes('index');
+    addRoutes('byCategory');
 
     /*
      * Controller methods
      */
     controller.index = function() {
         // this will be fired when routes match with '/'
-        SantiApp.mainRegion.show(new SantiApp.Views.Index());
+
+        /* This must be fetch of collection */
+        $.when(SantiApp.getCategories(), SantiApp.getTattoos()).then(function(categories, tattoos) {
+            SantiApp.Utils.categories = categories[0];
+            SantiApp.Utils.categorySelectedId = null;
+            SantiApp.Utils.categorySelectedDescription = null;
+
+            SantiApp.mainRegion.show(new SantiApp.Views.Index({
+                collection: new SantiApp.Collections.Tattoos(tattoos[0])
+            }));
+        });
+    };
+
+    controller.byCategory = function(id) {
+        // this will be fired when routes match with '/category/:id'
+
+        /* This must be fetch of collection */
+        $.when(SantiApp.getCategories(), SantiApp.getTattoos(id)).then(function(categories, tattoos) {
+            SantiApp.Utils.categories = categories[0];
+            var match = _.find(SantiApp.Utils.categories, function(e, i) {
+                return e.id === id;
+            });
+            SantiApp.Utils.categorySelectedId = match.id;
+            SantiApp.Utils.categorySelectedDescription = match.description;
+
+            SantiApp.mainRegion.show(new SantiApp.Views.Index({
+                collection: new SantiApp.Collections.Tattoos(tattoos[0])
+            }));
+        });
     };
 
     /**

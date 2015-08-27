@@ -1,0 +1,19 @@
+<br>
+{{#if (utils 'categorySelectedDescription')}}
+    <div class="row">
+        <div class="col s12">
+            <div class="card-panel teal">
+                <span class="white-text">{{utils 'categorySelectedDescription'}}</span>
+            </div>
+        </div>
+    </div>
+{{/if}}
+
+<div class="center" style="margin-top: 10px;">
+    <i class="small material-icons" data-js="view-module">view_module</i>
+    <i class="small material-icons" data-js="view-list">view_list</i>
+</div>
+
+<div class="container">
+    <div class="row" data-js="items-container"></div>
+</div>

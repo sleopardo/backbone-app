@@ -1,0 +1,29 @@
+[
+    {
+        "user": {
+            "name": "Sana Khan",
+            "avatar": "http://www.tattooset.com/images/avatars/t/tattoosprint.jpg"
+        },
+        "category_id": "31",
+        "image": "http://www.tattooset.com/images/tattoo/2015/07/22/25115-dragon-tattoo_large.jpg",
+        "caption": null,
+        "tags": [
+            "Dragon Tattoo",
+            "Celebrities Tattoo"
+        ]
+    },
+
+    {
+        "user": {
+            "name": "Sana Khan",
+            "avatar": "http://www.tattooset.com/images/avatars/t/tattoosprint.jpg"
+        },
+        "category_id": "31",
+        "image": "http://www.tattooset.com/images/tattoo/2014/02/11/22431-traditional-japanese-dragon-tattoo_large.jpg",
+        "caption": "Dragon tattoo done by Ed Madigan at Artistic Body Works in Cocoa Beach, close to Port Canaveral.",
+        "tags": [
+            "Dragon Tattoo",
+            "Celebrities Tattoo"
+        ]
+    }
+]

@@ -25,7 +25,9 @@ defaults = {
         './scripts/modules/router.module.js',
 
         // Application files
-        './scripts/views/index.layout.view.js',
+        './scripts/models/*',
+        './scripts/collections/*',
+        './scripts/views/*',
 
         // Initialize
         './scripts/modules/init.module.js'

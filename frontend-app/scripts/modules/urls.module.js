@@ -3,7 +3,8 @@
 SantiApp.module('Urls', function (Urls, SantiApp, Backbone, Marionette, $, _) {
 
     var urls = {
-        'index': ''
+        'index': '',
+        'byCategory': 'category/:id'
     };
 
     // Use this method to invoke any url from router, templates o files js

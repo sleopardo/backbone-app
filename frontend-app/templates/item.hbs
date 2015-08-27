@@ -1,0 +1,22 @@
+<div class="col s12" data-js="item-container">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-image" style="
+                    background: url({{image}}) center center;
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover;
+                    -o-background-size: cover;
+                    background-size: cover;
+                    height: 250px;
+                    width: 100%;
+                ">
+                </div>
+                <div class="card-content">
+                    <p><img src="{{user.avatar}}" /> {{user.name}}</p>
+                    <p>Tags: {{#each tags}}<span style="padding: 3px; background-color:#eee; border-radius: 5px;">{{this}}</span> {{/each}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
